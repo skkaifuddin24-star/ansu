@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🌟</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-light: #fff0f5;
+            --primary: #f72585;
+            --secondary: #b5179e;
+            --accent: #fcbf49;
+            --text-dark: #2b2d42;
+            --text-muted: #6c757d;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ---------------- ADVANCED BACKGROUND BLOBS ---------------- */
+        .bg-blobs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            background: linear-gradient(120deg, #fff0f5 0%, #ffe5ec 100%);
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: moveBlobs 20s infinite alternate ease-in-out;
+        }
+        
+        .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: rgba(247, 37, 133, 0.3); }
+        .blob-2 { bottom: -20%; right: -10%; width: 600px; height: 600px; background: rgba(181, 23, 158, 0.2); animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 50%; width: 400px; height: 400px; background: rgba(252, 191, 73, 0.2); animation-delay: -10s; }
+
+        @keyframes moveBlobs {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 100px) scale(1.1); }
+            100% { transform: translate(-50px, 50px) scale(0.9); }
+        }
+
+        /* ---------------- SCROLL REVEAL ANIMATIONS ---------------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left { transform: translateX(-50px); }
+        .reveal-right { transform: translateX(50px); }
+
+        /* ---------------- FLOATING ICONS ---------------- */
+        .floating-icon {
+            position: absolute;
+            color: rgba(247, 37, 133, 0.3);
+            animation: float 6s ease-in-out infinite alternate;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-40px) rotate(20deg); }
+        }
+
+        /* ---------------- CONTAINERS & SECTIONS ---------------- */
+        .section {
+            padding: 100px 20px;
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            font-weight: 700;
+            filter: drop-shadow(0px 4px 6px rgba(247,37,133,0.2));
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 60px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* ---------------- HERO SECTION ---------------- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(247,37,133,0.4)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 30px rgba(247,37,133,0.8)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(247,37,133,0.4)); }
+        }
+
+        .hero-title {
+            font-size: 6rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 20px 0;
+            letter-spacing: -2px;
+            text-shadow: 0px 10px 20px rgba(247, 37, 133, 0.2);
+        }
+
+        .hero-desc {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            max-width: 800px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .hero-subdesc {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            max-width: 700px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hearts-row i {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 0 10px;
+            animation: heartbeat 1.5s infinite;
+        }
+        .hearts-row i:nth-child(2) { animation-delay: 0.2s; }
+        .hearts-row i:nth-child(3) { animation-delay: 0.4s; }
+        .hearts-row i:nth-child(4) { animation-delay: 0.6s; }
+        .hearts-row i:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.15); }
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.5);
+            color: var(--primary);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            z-index: 500;
+        }
+
+        .home-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transform: translateX(-5px);
+            box-shadow: 0 15px 30px rgba(247, 37, 133, 0.4);
+        }
+
+        .scroll-btn {
+            margin-top: 50px;
+            background: rgba(255,255,255,0.8);
+            color: var(--text-dark);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(247, 37, 133, 0.15);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .scroll-btn:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(247, 37, 133, 0.3);
+            background: white;
+            color: var(--primary);
+        }
+
+        /* ---------------- GLASSMORPHIC CARDS WITH 3D TILT ---------------- */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            text-align: left;
+            perspective: 1000px;
+        }
+
+        .tilt-card {
+            background: var(--glass-bg);
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05), inset 0 0 0 1px var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease;
+            cursor: pointer;
+        }
+
+        .tilt-card:hover {
+            box-shadow: 0 30px 60px rgba(247, 37, 133, 0.15), inset 0 0 0 1px rgba(255,255,255,0.8);
+        }
+
+        .tilt-card-content {
+            transform: translateZ(40px); /* 3D pop out effect */
+        }
+
+        /* ---------------- SCRATCH GAME & LIVE CLOCK ---------------- */
+        .scratch-container {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            margin: 0 auto 50px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(247, 37, 133, 0.2);
+            background: white;
+            border: 2px solid var(--primary);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .scratch-content {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #fff0f3, #ffe5ec);
+            z-index: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #scratch-pad {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2;
+            cursor: pointer;
+            touch-action: none; /* Prevent scroll on touch */
+        }
+
+        .live-clock-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px auto 50px auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            max-width: 600px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to bottom, #f72585, #b5179e);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 15px;
+            min-width: 75px;
+            box-shadow: 0 5px 15px rgba(247,37,133,0.3);
+            transition: transform 0.3s;
+        }
+
+        .time-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .time-box span.num {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        
+        .time-box span.label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .reason-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(247, 37, 133, 0.2), rgba(181, 23, 158, 0.1));
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(247, 37, 133, 0.1);
+        }
+
+        .reason-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reason-text {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* ---------------- CAKE & WISH (INTERACTIVE) ---------------- */
+        .cake-container {
+            margin: 80px auto;
+            position: relative;
+            cursor: pointer;
+            width: 350px;
+            height: 300px;
+            z-index: 5;
+            transition: all 0.3s;
+        }
+        .cake-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .candle-flame {
+            transition: all 0.5s ease;
+            transform-origin: bottom center;
+        }
+
+        /* ---------------- TIMELINE ---------------- */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, transparent, var(--primary), var(--secondary), transparent);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 4px;
+        }
+
+        .timeline-item {
+            padding: 20px 60px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            right: -12px;
+            background-color: var(--primary);
+            border: 6px solid #fff;
+            top: 35px;
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 15px rgba(247, 37, 133, 0.4);
+        }
+
+        .left { left: 0; }
+        .right { left: 50%; }
+
+        .left::after { right: -12px; }
+        .right::after { left: -12px; }
+
+        .timeline-content {
+            padding: 40px;
+            background: var(--glass-bg);
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid var(--glass-border);
+            text-align: left;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-10px);
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(247, 37, 133, 0.1);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        /* ---------------- POLAROID DECORS ---------------- */
+        .polaroid-decor {
+            position: absolute;
+            background: white;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            z-index: 5;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 2px;
+        }
+        .polaroid-decor:hover {
+            transform: rotate(0deg) scale(1.15) !important;
+            z-index: 10;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+        .polaroid-decor img {
+            width: 220px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 2px;
+            filter: sepia(0.2) saturate(1.2);
+            transition: filter 0.3s;
+        }
+        .polaroid-decor:hover img {
+            filter: none;
+        }
+        .polaroid-decor .caption {
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        /* ---------------- IMAGE GALLERY ---------------- */
+        .gallery-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            background: white;
+            padding: 15px;
+            transform: translateZ(0); /* Force hardware accel */
+        }
+        
+        .gallery-img-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #050510;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 600px;
+            object-fit: contain;
+            display: block;
+            transition: opacity 0.5s ease-in-out, transform 5s ease;
+        }
+        
+        .gallery-container:hover .gallery-img {
+            transform: scale(1.02);
+        }
+        
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        
+        .slider-btn:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 15px 30px rgba(247, 37, 133, 0.3);
+        }
+        
+        .slider-btn.prev { left: 35px; }
+        .slider-btn.next { right: 35px; }
+
+        /* ---------------- FLOATING NOTES BUTTON ---------------- */
+        .notes-btn-container {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 999;
+        }
+
+        .notes-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2rem;
+            box-shadow: 0 15px 35px rgba(247, 37, 133, 0.5);
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: float-btn 3s ease-in-out infinite;
+            border: 3px solid rgba(255,255,255,0.4);
+        }
+
+        .notes-btn:hover {
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: 0 20px 45px rgba(247, 37, 133, 0.7);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        @keyframes float-btn {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .decor-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.4;
+            position: absolute;
+            transform: rotate(-15deg);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .flower-decor {
+            position: absolute;
+            pointer-events: none;
+            z-index: 10;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));
+            animation: slow-rock 10s ease-in-out infinite alternate;
+        }
+        
+        @keyframes slow-rock {
+            0% { transform: rotate(-5deg) scale(1); }
+            100% { transform: rotate(5deg) scale(1.05); }
+        }
+
+        @media screen and (max-width: 768px) {
+            .hero-title { font-size: 4rem; }
+            .section-title { font-size: 2.5rem; }
+            .timeline::after { left: 40px; }
+            .timeline-item { width: 100%; padding-left: 90px; padding-right: 20px; }
+            .timeline-item::after { left: 28px; }
+            .left::after, .right::after { left: 28px; }
+            .right { left: 0%; }
+            .polaroid-decor, .decor-text, .flower-decor { display: none !important; }
+            .hero-desc { font-size: 1.3rem; }
+            .notes-btn { width: 60px; height: 60px; font-size: 1.5rem; bottom: 20px; right: 20px; }
+            .gallery-img { height: 400px; }
+            .home-btn { top: 20px; left: 20px; padding: 10px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Background Blobs -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Back to Menu Button -->
+    <a href="key.html" class="home-btn reveal">
+        <i class="fa-solid fa-arrow-left"></i> Back to Menu
+    </a>
+
+    <!-- MAIN HERO SECTION -->
+    <div class="section hero">
+        <!-- Flowers -->
+        <img src="flower-left.png" alt="Flower" class="flower-decor" style="bottom: 5%; left: 0; width: 300px; transform-origin: bottom left;" onerror="this.style.display='none'">
+        <img src="flower-right.png" alt="Flower" class="flower-decor" style="bottom: 5%; right: 0; width: 300px; transform-origin: bottom right;" onerror="this.style.display='none'">
+        
+        <i class="fa-solid fa-wand-magic-sparkles hero-icon reveal"></i>
+        <h1 class="hero-title reveal">Happy Birthday, Ansura!</h1>
+        <p class="hero-desc reveal" style="transition-delay: 0.2s;">To the most amazing person in my life, my dear Ansu.</p>
+        <p class="hero-subdesc reveal" style="transition-delay: 0.4s;">Today is all about celebrating you and the incredible person you are. You bring so much joy, love, and light into my life every single day.</p>
+        
+        <div class="hearts-row reveal" style="transition-delay: 0.6s;">
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+            <i class="fa-solid fa-heart"></i>
+        </div>
+
+        <a href="#reasons" class="scroll-btn reveal" style="transition-delay: 0.8s;">
+            Scroll down for a special surprise <i class="fa-solid fa-arrow-down" style="color: var(--primary);"></i>
+        </a>
+    </div>
+
+    <!-- REASONS SECTION -->
+    <div class="section" id="reasons">
+        <h2 class="section-title reveal">Reasons Why I Love You, Ansu</h2>
+        <p class="section-subtitle reveal">Just a few of the infinite reasons...</p>
+
+        <div class="decor-text" style="top: 15%; right: -2%;">Absolutely Perfect</div>
+        <div class="decor-text" style="bottom: 10%; left: -2%; transform: rotate(15deg);">My Everything</div>
+
+        <div class="reasons-grid">
+            <!-- TILT CARDS -->
+            <div class="tilt-card reveal reveal-left">
+                <div class="tilt-card-content">
+                    <div class="reason-icon"><i class="fa-solid fa-face-smile-beam"></i></div>
+                    <h3 class="reason-title">Your Beautiful Smile</h3>
+                    <p class="reason-text">It lights up my entire world and makes every day infinitely brighter. I could look at it forever.</p>
+                </div>
+            </div>
+            
+            <div class="tilt-card reveal">
+                <div class="tilt-card-content">
+                    <div class="reason-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                    <h3 class="reason-title">Your Kind Heart</h3>
+                    <p class="reason-text">The way you care and show empathy to those around you inspires me daily to be a better person.</p>
+                </div>
+            </div>
+            
+            <div class="tilt-card reveal reveal-right">
+                <div class="tilt-card-content">
+                    <div class="reason-icon"><i class="fa-solid fa-face-laugh-squint"></i></div>
+                    <h3 class="reason-title">Your Sense of Humor</h3>
+                    <p class="reason-text">You make me laugh like absolutely no one else can, even on my hardest, most stressful days.</p>
+                </div>
+            </div>
+
+            <div class="tilt-card reveal reveal-left">
+                <div class="tilt-card-content">
+                    <div class="reason-icon"><i class="fa-solid fa-star-and-crescent"></i></div>
+                    <h3 class="reason-title">Your Unique Spirit</h3>
+                    <p class="reason-text">You have a magical, magnetic aura that makes everything feel so tremendously special and exciting.</p>
+                </div>
+            </div>
+            
+            <div class="tilt-card reveal">
+                <div class="tilt-card-content">
+                    <div class="reason-icon"><i class="fa-solid fa-sun"></i></div>
+                    <h3 class="reason-title">Your Positive Energy</h3>
+                    <p class="reason-text">Your warmth and optimism are simply contagious. You naturally radiate pure, authentic joy everywhere you go.</p>
+                </div>
+            </div>
+            
+            <div class="tilt-card reveal reveal-right">
+                <div class="tilt-card-content">
+                    <div class="reason-icon"><i class="fa-solid fa-compact-disc"></i></div>
+                    <h3 class="reason-title">The Way You Are</h3>
+                    <p class="reason-text">Simply put, I love every single thing about you. Your flaws, your quirks, you are my favorite melody.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAKE A WISH SECTION -->
+    <div class="section" id="wish">
+        <h2 class="section-title reveal">Make a Wish! <i class="fa-solid fa-cake-candles"></i></h2>
+        <p class="section-subtitle reveal">Close your eyes, make a wish, and click the cake...</p>
+
+        <!-- Cute star next to cake -->
+        <div class="flower-decor" style="bottom: 10px; left: 15%; width: 100px; animation-duration: 4s; font-size: 4rem; color: #fcbf49; filter: drop-shadow(0 10px 15px rgba(252, 191, 73, 0.4));">
+            <i class="fa-solid fa-star"></i>
+        </div>
+
+        <!-- Interactive Cake Container -->
+        <div id="wish-container" class="cake-container reveal" onclick="makeWish()">
+            <div id="wish-text-container" style="position:absolute; top:-80px; width:100%; text-align:center; z-index:20;"></div>
+            
+            <div style="width:250px; height:150px; background:linear-gradient(to bottom, #ff4d6d, #c9184a); border-radius:15px; position:absolute; bottom:0; left:50px; border:2px solid #fff; box-shadow:0 15px 30px rgba(0,0,0,0.15);">
+                <div style="display:flex; justify-content:space-around; margin-top:20px; color:#fff; font-size:1.5rem;">
+                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
+            <div style="width:200px; height:80px; background:linear-gradient(to bottom, #d884ff, #b5179e); border-radius:10px; position:absolute; bottom:80px; left:75px; border:2px solid #fff;">
+                <svg width="200" height="30" viewBox="0 0 200 30" style="position:absolute; bottom:0;">
+                    <path d="M0,15 Q25,30 50,15 T100,15 T150,15 T200,15" fill="none" stroke="#fff" stroke-width="3" opacity="0.5"/>
+                </svg>
+            </div>
+            <div style="width:150px; height:60px; background:linear-gradient(to bottom, #ffb3c6, #ff4d6d); border-radius:10px; position:absolute; bottom:140px; left:100px; border:2px solid #fff;">
+                <svg width="150" height="20" viewBox="0 0 150 20" style="position:absolute; bottom:5px;">
+                    <path d="M0,10 Q18,20 37.5,10 T75,10 T112.5,10 T150,10" fill="none" stroke="#fff" stroke-width="3" opacity="0.5"/>
+                </svg>
+            </div>
+            <!-- Flames that will be hidden by JS -->
+            <div style="display:flex; justify-content:center; gap:12px; position:absolute; bottom:200px; left:0; width:100%;">
+                <div class="candle" style="width:10px; height:40px; background:linear-gradient(#fff, #ffb3c6); border-radius:5px; position:relative; box-shadow:0 0 5px rgba(0,0,0,0.1);">
+                    <div class="candle-flame" style="position:absolute; top:-22px; left:-4px; font-size:18px; color:#fcbf49; filter:drop-shadow(0 0 10px #fcbf49); animation:pulse 0.5s infinite alternate;"><i class="fa-solid fa-fire"></i></div>
+                </div>
+                <div class="candle" style="width:10px; height:40px; background:linear-gradient(#fff, #ffb3c6); border-radius:5px; position:relative; box-shadow:0 0 5px rgba(0,0,0,0.1);">
+                    <div class="candle-flame" style="position:absolute; top:-22px; left:-4px; font-size:18px; color:#fcbf49; filter:drop-shadow(0 0 10px #fcbf49); animation:pulse 0.7s infinite alternate;"><i class="fa-solid fa-fire"></i></div>
+                </div>
+                <div class="candle" style="width:10px; height:40px; background:linear-gradient(#fff, #ffb3c6); border-radius:5px; position:relative; box-shadow:0 0 5px rgba(0,0,0,0.1);">
+                    <div class="candle-flame" style="position:absolute; top:-22px; left:-4px; font-size:18px; color:#fcbf49; filter:drop-shadow(0 0 10px #fcbf49); animation:pulse 0.6s infinite alternate;"><i class="fa-solid fa-fire"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRATCH TO REVEAL SECTION -->
+    <div class="section" id="gifts">
+        <h2 class="section-title reveal">Your Special Gift <i class="fa-solid fa-gift" style="color:var(--primary);"></i></h2>
+        <p class="section-subtitle reveal">Scratch the silver card below to reveal your surprise!</p>
+        
+        <div class="scratch-container reveal">
+            <div class="scratch-content">
+                <i class="fa-solid fa-wand-magic-sparkles" style="font-size:3rem; color:var(--primary); margin-bottom:10px;"></i>
+                <h3 style="margin:0; font-family:'Dancing Script', cursive; font-size:2.5rem; color:var(--text-dark);">1 Free Wish</h3>
+                <p style="margin-top:5px; color:var(--text-muted); font-size:0.9rem;">Redeemable anytime, for anything!</p>
+            </div>
+            <canvas id="scratch-pad"></canvas>
+        </div>
+    </div>
+
+    <!-- TIMELINE SECTION -->
+    <div class="section" id="story">
+        <h2 class="section-title reveal">Our Story</h2>
+        <p class="section-subtitle reveal">A beautifully crafted timeline of our journey...</p>
+
+        <!-- Live Clock -->
+        <div class="reveal">
+            <h3 style="color:var(--primary); font-family:'Caveat', cursive; font-size:2.5rem; margin:0 0 10px 0;">Time spent falling for you, Ansu...</h3>
+            <div class="live-clock-container">
+                <div class="time-box"><span class="num" id="t-days">0</span><span class="label">Days</span></div>
+                <div class="time-box"><span class="num" id="t-hours">0</span><span class="label">Hrs</span></div>
+                <div class="time-box"><span class="num" id="t-mins">0</span><span class="label">Mins</span></div>
+                <div class="time-box"><span class="num" id="t-secs">0</span><span class="label">Secs</span></div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(5deg);">
+                    <img src="ic/1ffc03ee-47f3-4ad8-9581-5f0c3ee72412.jpg" alt="Memory">
+                    <div class="caption">Memory 1</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 1</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">A Beautiful Memory</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-6deg);">
+                    <video src="ic/5b95ce62-727a-460b-9fa5-7c919accf71b.mp4" autoplay loop muted playsinline style="width: 220px; height: 250px; object-fit: cover; border-radius: 2px;"></video>
+                    <div class="caption">Memory 2</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 2</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">The Perfect Evening</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Talking for hours felt like absolute minutes. Time just froze, and I honestly never wanted the evening to end.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(7deg);">
+                    <video src="ic/AICW2364.MP4" autoplay loop muted playsinline style="width: 220px; height: 250px; object-fit: cover; border-radius: 2px;"></video>
+                    <div class="caption">Memory 3</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 3</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Saying I Love You</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">The best three words I've ever spoken in my entire life, and the warmest, most incredible feeling when you said it back to me.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-5deg);">
+                    <img src="ic/IMG_2118.JPG" alt="Memory">
+                    <div class="caption">Memory 4</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 4</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Smiles & Joy</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(6deg);">
+                    <img src="ic/IMG_2285.JPG" alt="Memory">
+                    <div class="caption">Memory 5</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 5</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Unforgettable</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-7deg);">
+                    <img src="ic/IMG_2600.JPG" alt="Memory">
+                    <div class="caption">Memory 6</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 6</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Cherished Memory</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(5deg);">
+                    <img src="ic/IMG_2601.JPG" alt="Memory">
+                    <div class="caption">Memory 7</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 7</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Making Memories</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-6deg);">
+                    <img src="ic/IMG_2604.JPG" alt="Memory">
+                    <div class="caption">Memory 8</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 8</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Forever</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(7deg);">
+                    <img src="ic/IMG_2605.JPG" alt="Memory">
+                    <div class="caption">Memory 9</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 9</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Our Adventure</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-5deg);">
+                    <img src="ic/IMG_2613.JPG" alt="Memory">
+                    <div class="caption">Memory 10</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 10</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Love Story</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(6deg);">
+                    <img src="ic/IMG_2618.JPG" alt="Memory">
+                    <div class="caption">Memory 11</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 11</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">A New Chapter</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-7deg);">
+                    <img src="ic/IMG_2619.JPG" alt="Memory">
+                    <div class="caption">Memory 12</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 12</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Beautiful Moment</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(5deg);">
+                    <img src="ic/IMG_2628.JPG" alt="Memory">
+                    <div class="caption">Memory 13</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 13</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Just Us</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-6deg);">
+                    <img src="ic/IMG_2629.JPG" alt="Memory">
+                    <div class="caption">Memory 14</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 14</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Smiles & Joy</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(7deg);">
+                    <img src="ic/IMG_2630.JPG" alt="Memory">
+                    <div class="caption">Memory 15</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 15</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Unforgettable</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-5deg);">
+                    <img src="ic/IMG_2631.JPG" alt="Memory">
+                    <div class="caption">Memory 16</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 16</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Cherished Memory</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(6deg);">
+                    <img src="ic/IMG_2634.PNG" alt="Memory">
+                    <div class="caption">Memory 17</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 17</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Making Memories</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-7deg);">
+                    <img src="ic/IMG_7914 (1).JPG" alt="Memory">
+                    <div class="caption">Memory 18</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 18</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Forever</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(5deg);">
+                    <img src="ic/IMG_7914.JPG" alt="Memory">
+                    <div class="caption">Memory 19</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 19</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Our Adventure</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-6deg);">
+                    <img src="ic/IMG_7956.JPG" alt="Memory">
+                    <div class="caption">Memory 20</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 20</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Love Story</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(7deg);">
+                    <img src="ic/IMG_7975.JPG" alt="Memory">
+                    <div class="caption">Memory 21</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 21</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">A New Chapter</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-5deg);">
+                    <img src="ic/IMG_7985.JPG" alt="Memory">
+                    <div class="caption">Memory 22</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 22</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Beautiful Moment</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(6deg);">
+                    <img src="ic/WhatsApp Image 2026-04-05 at 23.57.32.jpeg" alt="Memory">
+                    <div class="caption">Memory 23</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 23</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Just Us</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-7deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.23.jpeg" alt="Memory">
+                    <div class="caption">Memory 24</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 24</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Smiles & Joy</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(5deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.24 (1).jpeg" alt="Memory">
+                    <div class="caption">Memory 25</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 25</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Unforgettable</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-6deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.24.jpeg" alt="Memory">
+                    <div class="caption">Memory 26</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 26</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Cherished Memory</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(7deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.25 (1).jpeg" alt="Memory">
+                    <div class="caption">Memory 27</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 27</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Making Memories</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-5deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.25 (2).jpeg" alt="Memory">
+                    <div class="caption">Memory 28</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 28</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Forever</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(6deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.25.jpeg" alt="Memory">
+                    <div class="caption">Memory 29</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 29</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Our Adventure</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-7deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.26 (1).jpeg" alt="Memory">
+                    <div class="caption">Memory 30</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 30</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Love Story</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(5deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.26 (2).jpeg" alt="Memory">
+                    <div class="caption">Memory 31</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 31</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">A New Chapter</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-6deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.26.jpeg" alt="Memory">
+                    <div class="caption">Memory 32</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 32</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Beautiful Moment</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item left reveal reveal-left">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="right: -45%; top: 0; transform: rotate(7deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.27 (1).jpeg" alt="Memory">
+                    <div class="caption">Memory 33</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 33</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Just Us</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal reveal-right">
+                <!-- 3D Polaroid -->
+                <div class="polaroid-decor" style="left: -50%; top: 20px; transform: rotate(-5deg);">
+                    <img src="ic/WhatsApp Image 2026-04-13 at 23.08.27.jpeg" alt="Memory">
+                    <div class="caption">Memory 34</div>
+                </div>
+                
+                <div class="timeline-content">
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Moment 34</div>
+                    <h3 style="margin-top:0; font-size:1.8rem; color:var(--text-dark);">Smiles & Joy</h3>
+                    <p style="color:var(--text-muted); font-size:1.05rem; line-height: 1.7;">Every second spent together has been nothing short of magical. A memory to keep locked in my heart forever.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALLERY SECTION -->
+    <div class="section" id="gallery">
+        <h2 class="section-title reveal">Precious Moments <i class="fa-solid fa-camera-retro" style="color:var(--secondary);"></i></h2>
+        <p class="section-subtitle reveal">Every single memory with you is a priceless treasure.</p>
+
+        <div class="gallery-container reveal">
+            <div class="gallery-img-wrapper">
+                <img src="ic/1ffc03ee-47f3-4ad8-9581-5f0c3ee72412.jpg" alt="Precious Moments" class="gallery-img" id="gallery-image">
+            </div>
+            <button class="slider-btn prev" onclick="prevImage()"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="slider-btn next" onclick="nextImage()"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- FLOATING NOTES BUTTON -->
+    <div class="notes-btn-container">
+        <a href="notes.html" class="notes-btn" title="Read My Secret Notes for You!">
+            <i class="fa-regular fa-envelope-open"></i>
+        </a>
+    </div>
+
+    <script>
+        // ---------------- DYNAMIC FLOATING ICONS ----------------
+        const iconsArray = ['fa-star', 'fa-heart', 'fa-sparkles', 'fa-music', 'fa-gift', 'fa-moon'];
+        for(let i=0; i<40; i++) { 
+            const icon = document.createElement('i');
+            icon.className = `fa-solid ${iconsArray[Math.floor(Math.random() * iconsArray.length)]} floating-icon`;
+            icon.style.left = `${Math.random() * 100}vw`;
+            icon.style.top = `${Math.random() * 100}vh`;
+            const size = Math.random() * 25 + 10;
+            icon.style.fontSize = `${size}px`;
+            icon.style.animationDelay = `${Math.random() * 5}s`;
+            icon.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            icon.style.opacity = (Math.random() * 0.4) + 0.1;
+            document.body.appendChild(icon);
+        }
+
+        // ---------------- SCROLL REVEAL OPACITY / INTERSECTION OBSERVER ----------------
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ---------------- 3D TILT EFFECT ON CARDS ----------------
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            const content = card.querySelector('.tilt-card-content');
+            
+            card.addEventListener('mousemove', (e) => {
+                // Remove transition duration so it tracks mouse instantly
+                card.style.transitionDuration = '0s';
+                
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // x position within the element.
+                const y = e.clientY - rect.top;  // y position within the element.
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                
+                // Light glare effect based on mouse pos
+                const glowX = (x / rect.width) * 100;
+                const glowY = (y / rect.height) * 100;
+                card.style.background = `radial-gradient(circle at ${glowX}% ${glowY}%, rgba(255,255,255,0.9), rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.5))`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                // Restore transition duration for smooth reset
+                card.style.transitionDuration = '0.5s';
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                card.style.background = 'var(--glass-bg)';
+            });
+        });
+
+        // ---------------- WISH GRANTED & CONFETTI ----------------
+        let wishMade = false;
+        function makeWish() {
+            if(wishMade) return; // Prevent multiple clicks
+            wishMade = true;
+
+            // Blow out the candles
+            const flames = document.querySelectorAll('.candle-flame');
+            flames.forEach(flame => {
+                flame.style.transform = 'scale(0)';
+                flame.style.opacity = '0';
+            });
+
+            // Display majestic text
+            const wishText = document.getElementById('wish-text-container');
+            wishText.innerHTML = '<h2 style="color:var(--primary); font-size:3rem; font-family:\'Dancing Script\', cursive; text-shadow:0 0 20px rgba(247,37,133,0.8); animation:pulse-glow 2s infinite; margin:0;">✨ Wish Granted! ✨</h2>';
+            
+            // Container wiggle effect
+            document.getElementById('wish-container').style.transform = 'scale(0.95)';
+            setTimeout(() => { document.getElementById('wish-container').style.transform = 'scale(1.05)'; }, 200);
+            setTimeout(() => { document.getElementById('wish-container').style.transform = 'scale(1)'; }, 400);
+
+            // Blast Confetti via canvas-confetti library
+            var duration = 4000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                // Launch from left edge
+                confetti({
+                    particleCount: 7,
+                    angle: 60,
+                    spread: 80,
+                    origin: { x: 0, y: 0.8 },
+                    colors: ['#f72585', '#b5179e', '#fcbf49', '#ffffff']
+                });
+                // Launch from right edge
+                confetti({
+                    particleCount: 7,
+                    angle: 120,
+                    spread: 80,
+                    origin: { x: 1, y: 0.8 },
+                    colors: ['#f72585', '#b5179e', '#fcbf49', '#ffffff']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Add float animation for granted text
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes floatUp {
+                0% { opacity: 0; transform: translateY(20px); }
+                20% { opacity: 1; transform: translateY(0); }
+                80% { opacity: 1; transform: translateY(-10px); }
+                100% { opacity: 0; transform: translateY(-20px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ---------------- GALLERY SLIDER ----------------
+        const galleryMedia = [
+            {
+                        "src": "ic/1ffc03ee-47f3-4ad8-9581-5f0c3ee72412.jpg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/5b95ce62-727a-460b-9fa5-7c919accf71b.mp4",
+                        "type": "video"
+            },
+            {
+                        "src": "ic/AICW2364.MP4",
+                        "type": "video"
+            },
+            {
+                        "src": "ic/IMG_2118.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2285.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2600.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2601.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2604.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2605.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2613.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2618.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2619.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2628.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2629.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2630.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2631.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_2634.PNG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_7914 (1).JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_7914.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_7956.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_7975.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/IMG_7985.JPG",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-05 at 23.57.32.jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.23.jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.24 (1).jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.24.jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.25 (1).jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.25 (2).jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.25.jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.26 (1).jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.26 (2).jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.26.jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.27 (1).jpeg",
+                        "type": "image"
+            },
+            {
+                        "src": "ic/WhatsApp Image 2026-04-13 at 23.08.27.jpeg",
+                        "type": "image"
+            }
+];
+        
+        let currentImgIndex = 0;
+        const galleryWrapper = document.querySelector('.gallery-img-wrapper');
+        
+        function updateGalleryImage() {
+            const currentItem = galleryWrapper.children[0];
+            currentItem.style.opacity = '0.5';
+            currentItem.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                const media = galleryMedia[currentImgIndex];
+                
+                // Construct new element depending on type
+                let newElement;
+                if(media.type === 'video') {
+                    newElement = document.createElement('video');
+                    newElement.src = media.src;
+                    newElement.autoplay = true;
+                    newElement.loop = true;
+                    newElement.muted = true;
+                    newElement.playsInline = true;
+                } else {
+                    newElement = document.createElement('img');
+                    newElement.src = media.src;
+                    newElement.alt = "Precious Moments";
+                }
+                
+                newElement.className = "gallery-img";
+                newElement.id = "gallery-image";
+                newElement.style.opacity = '1';
+                newElement.style.transform = 'scale(1)';
+                
+                galleryWrapper.innerHTML = '';
+                galleryWrapper.appendChild(newElement);
+            }, 300);
+        }
+
+        function nextImage() {
+            currentImgIndex = (currentImgIndex + 1) % galleryMedia.length;
+            updateGalleryImage();
+        }
+
+        function prevImage() {
+            currentImgIndex = (currentImgIndex - 1 + galleryMedia.length) % galleryMedia.length;
+            updateGalleryImage();
+        }
+
+        // ---------------- SCRATCH TO REVEAL ----------------
+        const canvas = document.getElementById('scratch-pad');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let scratchEnabled = true;
+
+        const scratchContainer = document.querySelector('.scratch-container');
+        canvas.width = scratchContainer.offsetWidth || 320;
+        canvas.height = scratchContainer.offsetHeight || 200;
+
+        // Silver coating
+        ctx.fillStyle = '#b0bec5';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.font = '700 20px Poppins';
+        ctx.fillStyle = '#78909c';
+        ctx.textAlign = 'center';
+        ctx.fillText('Scratch with your finger!', canvas.width / 2, canvas.height / 2);
+
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            if (!scratchEnabled) return;
+            isDrawing = true;
+            scratch(e);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            checkScratchCompletion();
+        }
+
+        function scratch(e) {
+            if (!isDrawing || !scratchEnabled) return;
+            const pos = getMousePos(e);
+            
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, 25, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function checkScratchCompletion() {
+            if(!scratchEnabled) return;
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let transparentPixels = 0;
+            for (let i = 3; i < imageData.data.length; i += 4) {
+                if (imageData.data[i] === 0) transparentPixels++;
+            }
+            
+            const percentage = (transparentPixels / (canvas.width * canvas.height)) * 100;
+            if (percentage > 50) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                scratchEnabled = false;
+                canvas.style.pointerEvents = 'none'; 
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#f72585', '#fcbf49', '#ffffff']
+                });
+            }
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', scratch);
+        window.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e); }, {passive: false});
+        canvas.addEventListener('touchmove', (e) => { e.preventDefault(); scratch(e); }, {passive: false});
+        window.addEventListener('touchend', stopDrawing);
+
+        // ---------------- LIVE CLOCK ----------------
+        // Default anniversary date! Change this to actual date!
+        const startDate = new Date('01 Jan 2023 00:00:00').getTime();
+
+        const dEl = document.getElementById('t-days');
+        const hEl = document.getElementById('t-hours');
+        const mEl = document.getElementById('t-mins');
+        const sEl = document.getElementById('t-secs');
+
+        function updateClock() {
+            const now = new Date().getTime();
+            const distance = now - startDate;
+            
+            dEl.innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+            hEl.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            mEl.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            sEl.innerText = Math.floor((distance % (1000 * 60)) / 1000);
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // ---------------- GLOBAL CLICK SOUND ----------------
+        function playClickSound() {
+            let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3');
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log('Audio blocked:', e));
+        }
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('a, button, .tilt-card, .slider-btn, .notes-btn, .cake-container, .home-btn')) {
+                playClickSound();
+            }
+        });
+    </script>
+    <!-- 10X Premium Features -->
+    <link rel="stylesheet" href="10x-features.css">
+    <script src="10x-features.js"></script>
+</body>
+</html>

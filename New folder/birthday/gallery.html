@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansu's Gallery 📸</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #f72585;
+            --secondary: #b5179e;
+            --accent: #fcbf49;
+            --text-light: #e0e0e0;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #050510;
+            color: white;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ---------------- ADVANCED BACKGROUND BLOBS ---------------- */
+        .bg-blobs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.5;
+            animation: moveBlobs 25s infinite alternate ease-in-out;
+        }
+        
+        .blob-1 { top: -10%; left: -10%; width: 600px; height: 600px; background: rgba(247, 37, 133, 0.4); }
+        .blob-2 { bottom: -20%; right: -10%; width: 700px; height: 700px; background: rgba(181, 23, 158, 0.3); animation-delay: -5s; }
+        .blob-3 { top: 30%; left: 40%; width: 500px; height: 500px; background: rgba(100, 20, 200, 0.3); animation-delay: -10s; }
+
+        @keyframes moveBlobs {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 100px) scale(1.1); }
+            100% { transform: translate(-50px, 50px) scale(0.9); }
+        }
+
+        /* ---------------- HEADER ---------------- */
+        header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 50;
+        }
+
+        .home-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateX(-5px);
+            box-shadow: 0 15px 30px rgba(247, 37, 133, 0.4);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5.5rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 25px rgba(247, 37, 133, 0.4);
+            letter-spacing: 2px;
+        }
+
+        p.subtitle {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-top: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* ---------------- MASONRY GRID ---------------- */
+        .gallery-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px 100px;
+        }
+
+        .masonry {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-auto-rows: 250px;
+            grid-auto-flow: dense;
+            gap: 25px;
+        }
+
+        /* Creating dynamic sizes for different photos */
+        .masonry-item:nth-child(2n) { grid-row: span 2; }
+        .masonry-item:nth-child(5n) { grid-column: span 2; grid-row: span 2; }
+        .masonry-item:nth-child(7n) { grid-row: span 1; }
+
+        @media screen and (max-width: 768px) {
+            .masonry-item:nth-child(5n) { grid-column: span 1; grid-row: span 2; } 
+            .home-btn { top: 20px; left: 20px; padding: 10px 15px; }
+            h1 { font-size: 3.5rem; }
+            .gallery-container { padding: 10px 15px 50px; }
+        }
+
+        /* ---------------- GALLERY CARD ---------------- */
+        .gallery-item {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #000;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: all 0.5s ease;
+        }
+
+        /* Shine sweep effect */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            z-index: 10;
+            transition: none;
+        }
+
+        .gallery-item:hover::before {
+            left: 150%;
+            transition: left 0.8s ease;
+        }
+
+        .gallery-item:hover {
+            box-shadow: 0 25px 60px rgba(247, 37, 133, 0.4), inset 0 0 0 1px rgba(255,255,255,0.5);
+            z-index: 20;
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.8s ease;
+            filter: grayscale(0.8) brightness(0.6);
+        }
+
+        .gallery-item:hover img, .gallery-item:hover video {
+            transform: scale(1.15);
+            filter: grayscale(0) brightness(1.1);
+            border-radius: 20px;
+        }
+
+        /* Subtle numbering/hint inside grid item */
+        .item-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+            transform: translateZ(50px);
+        }
+
+        .gallery-item:hover .item-number {
+            opacity: 1;
+        }
+
+        /* Center Hover Badge */
+        .item-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            width: 80%;
+            padding: 20px 10px;
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            color: white;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 15;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .gallery-item:hover .item-overlay {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .item-overlay p {
+            margin: 0;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #fff;
+            text-shadow: 0 4px 10px rgba(247, 37, 133, 0.8);
+        }
+
+        /* ---------------- SCROLL REVEAL ---------------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------------- LUXURY 3D CIRCLE LIGHTBOX ---------------- */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            perspective: 2000px;
+            overflow: hidden;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .carousel-scene {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        .carousel-ring {
+            width: 320px;
+            height: 480px;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .carousel-item-3d {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: filter 0.6s ease, opacity 0.6s ease, box-shadow 0.6s ease;
+            backface-visibility: hidden;
+        }
+
+        .carousel-item-3d img, .carousel-item-3d video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-item-3d.inactive {
+            filter: brightness(0.15) saturate(0);
+            opacity: 0.3;
+            box-shadow: none;
+            border-color: transparent;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(247, 37, 133, 0.5);
+            transition: all 0.3s;
+            border: 2px solid white;
+            z-index: 1001;
+        }
+
+        .lightbox-close:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: white;
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1002;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 15px 40px rgba(247, 37, 133, 0.6);
+        }
+
+        .prev-btn { left: 40px; }
+        .next-btn { right: 40px; }
+
+        #lightbox-img {
+            transition: opacity 0.3s ease;
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-btn { width: 50px; height: 50px; font-size: 1.5rem; }
+            .prev-btn { left: 10px; }
+            .next-btn { right: 10px; }
+            .lightbox-close { top: 20px; right: 20px; }
+            .carousel-ring { width: 260px; height: 380px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Background Blobs -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header class="reveal">
+        <a href="key.html" class="home-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Menu
+        </a>
+        <h1>Ansu's Memories</h1>
+        <p class="subtitle">Every Picture Tells Our Beautiful Story, Ansu</p>
+    </header>
+
+    <div class="gallery-container">
+        <div class="masonry">
+            
+            <!-- Generate user slots -->
+            
+            <div class="masonry-item gallery-item reveal" onclick="openLightbox('your.jpeg')">
+                <img src="your.jpeg" alt="Memory" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80'">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Beautiful</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal" onclick="openLightbox('k.jpeg')">
+                <img src="k.jpeg" alt="Memory" onerror="this.src='https://images.unsplash.com/photo-1521453265538-4e4b50c26569?auto=format&fit=crop&w=800&q=80'">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>That Smile</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/1675230647132.jpg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Precious</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/1681705432980.jpg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Together</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/1682356026469.jpg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>My World</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/1682356026811.jpg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Special</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/1682356026999.jpg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Adore You</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/1682356027420.jpg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>So Cute</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/1682356027812.jpg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Favorite</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/1682483014461.jpg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Lovely</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/1682609887657.jpg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Unforgettable</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <video src="her/DRJH3345.MOV" autoplay loop muted playsinline></video>
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Forever</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_0379.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Heartbeat</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_0641.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Love</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_0649.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Bliss</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_0789.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Sweetest</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_2137.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Magical</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_7904.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Stunning</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_7908.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Perfection</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_8085.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Angel</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_8130 (1).JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>My All</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_8200.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Precious</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_8202.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Together</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_8207.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>My World</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_8483.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Special</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_8543 (1).JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Adore You</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_8861.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>So Cute</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_9114.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Favorite</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/IMG_9898.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Lovely</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <video src="her/IQBH0605.MOV" autoplay loop muted playsinline></video>
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Unforgettable</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <video src="her/KEGY9758.MP4" autoplay loop muted playsinline></video>
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Forever</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <video src="her/LYHZ2749.MOV" autoplay loop muted playsinline></video>
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Heartbeat</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/NPQW5582.JPG" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Love</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/WhatsApp Image 2026-04-08 at 22.19.43.jpeg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Bliss</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <img src="her/WhatsApp Image 2026-04-08 at 22.21.48.jpeg" alt="Memory">
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Sweetest</p></div>
+            </div>
+
+            <div class="masonry-item gallery-item reveal">
+                <video src="her/XCVN5881.MOV" autoplay loop muted playsinline></video>
+                <div class="item-number"><i class="fa-solid fa-expand"></i></div>
+                <div class="item-overlay"><p>Magical</p></div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- LIGHTBOX OVERLAY -->
+    <div class="lightbox" id="lightbox">
+        
+        <div class="nav-btn prev-btn" onclick="navigateCarousel(-1)"><i class="fa-solid fa-chevron-left"></i></div>
+
+        <!-- 3D Scene Geometry -->
+        <div class="carousel-scene" id="carousel-scene">
+            <div class="carousel-ring" id="carousel-ring">
+                <!-- Javascript will inject the 20 3D cards here -->
+            </div>
+        </div>
+
+        <div class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></div>
+        
+        <div class="nav-btn next-btn" onclick="navigateCarousel(1)"><i class="fa-solid fa-chevron-right"></i></div>
+    </div>
+
+    <script>
+        // ---------------- SCROLL REVEAL OBSERVER ----------------
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Remove load delay for instant mouse track later
+                    setTimeout(() => {
+                        entry.target.style.transitionDelay = '0s';
+                        entry.target.style.transitionDuration = '0s';
+                    }, 800);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el, index) => {
+            // Stagger load times based on index for a neat load-in effect
+            el.style.transitionDelay = `${(index % 5) * 0.1}s`;
+            observer.observe(el);
+        });
+
+        // ---------------- 3D CYLINDER CAROUSEL ----------------
+        const lightbox = document.getElementById('lightbox');
+        const carouselRing = document.getElementById('carousel-ring');
+        const allGalleryItems = document.querySelectorAll('.gallery-item');
+        const totalItems = allGalleryItems.length;
+        const anglePerItem = 360 / totalItems;
+        // Dynamically calculate radius based on the total number of items
+        const radius = Math.round((320 / 2) / Math.tan(Math.PI / totalItems)) + 80; 
+        
+        let absoluteIndex = 0; // Tracks absolute rotation to avoid backwards spin un-winding
+        let currentCarouselIndex = 0;
+        let ringItems = [];
+
+        // Pre-build the 3D ring geometry using the images from the main page
+        allGalleryItems.forEach((item, index) => {
+            let mediaSrc;
+            let isVideo = false;
+            let mediaElement = item.querySelector('img');
+            if (mediaElement) {
+                mediaSrc = mediaElement.getAttribute('src');
+            } else {
+                mediaElement = item.querySelector('video');
+                if (mediaElement) {
+                    mediaSrc = mediaElement.getAttribute('src');
+                    isVideo = true;
+                }
+            }
+            
+            const div = document.createElement('div');
+            div.className = 'carousel-item-3d inactive';
+            div.style.transform = `rotateY(${index * anglePerItem}deg) translateZ(${radius}px)`;
+            
+            if (isVideo) {
+                const vid = document.createElement('video');
+                vid.src = mediaSrc;
+                vid.autoplay = true;
+                vid.loop = true;
+                vid.muted = true;
+                vid.playsInline = true;
+                div.appendChild(vid);
+            } else {
+                const img = document.createElement('img');
+                img.src = mediaSrc;
+                div.appendChild(img);
+            }
+            
+            carouselRing.appendChild(div);
+            ringItems.push(div);
+
+            // Override click on main grid
+            item.onclick = (e) => {
+                e.preventDefault();
+                openCarousel(index);
+            };
+        });
+
+        function updateCarouselView() {
+            // Re-center ring to camera seamlessly
+            carouselRing.style.transform = `translateZ(${-radius}px) rotateY(${-absoluteIndex * anglePerItem}deg)`;
+            
+            // Highlight active, dim others for depth illusion
+            ringItems.forEach((item, i) => {
+                if(i === currentCarouselIndex) {
+                    item.classList.remove('inactive');
+                } else {
+                    item.classList.add('inactive');
+                }
+            });
+        }
+
+        function openCarousel(index) {
+            absoluteIndex = index;
+            currentCarouselIndex = index;
+            updateCarouselView();
+            
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function navigateCarousel(direction) {
+            absoluteIndex += direction;
+            currentCarouselIndex = ((absoluteIndex % totalItems) + totalItems) % totalItems;
+            updateCarouselView();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Keyboard Controls
+        document.addEventListener('keydown', function(event) {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (event.key === "Escape") closeLightbox();
+            else if (event.key === "ArrowRight") navigateCarousel(1);
+            else if (event.key === "ArrowLeft") navigateCarousel(-1);
+        });
+
+        // ---------------- CLICK SOUND ----------------
+        function playClickSound() {
+            let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3');
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log('Audio blocked:', e));
+        }
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('a, .home-btn, .gallery-item, .nav-btn, .lightbox-close')) {
+                playClickSound();
+            }
+        });
+    </script>
+    <!-- Premium Features -->
+    <link rel="stylesheet" href="premium-features.css">
+    <script src="premium-features.js"></script>
+    <!-- 10X Premium Features -->
+    <link rel="stylesheet" href="10x-features.css">
+    <script src="10x-features.js"></script>
+</body>
+</html>

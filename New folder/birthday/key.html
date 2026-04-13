@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Ansura ❤️</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  font-family: sans-serif;
+  background: black;
+  overflow: hidden;
+}
+
+/* Center */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Scene Cinematic Transitions */
+#imageScene, #videoScene, #greeting, #menu, .section {
+    animation: fadeInScene 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+@keyframes fadeInScene {
+    0% { opacity: 0; filter: blur(10px); transform: scale(0.95); }
+    100% { opacity: 1; filter: blur(0px); transform: scale(1); }
+}
+
+/* 🔐 LOCK */
+#lockScreen {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(circle, #2b0033 0%, #050510 100%);
+}
+
+.lock {
+  width: 120px;
+  filter: drop-shadow(0 0 15px rgba(247, 37, 133, 0.6));
+  animation: pulseLock 2s infinite alternate ease-in-out;
+}
+@keyframes pulseLock {
+  from { transform: scale(1); filter: drop-shadow(0 0 10px rgba(247, 37, 133, 0.4)); }
+  to { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(247, 37, 133, 0.8)); }
+}
+
+.key {
+  width: 100px;
+  position: absolute;
+  left: -150px;
+  animation: moveKey 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes moveKey {
+  0% { left: -150px; }
+  50% { left: 50%; transform: translateX(-50%); }
+  100% { transform: translateX(-50%); }
+}
+
+.unlock {
+  animation: unlock 1s forwards;
+}
+
+@keyframes unlock {
+  to { opacity: 0; transform: scale(0); filter: blur(20px); }
+}
+
+/* 🖼 IMAGE */
+#imageScene {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+}
+
+#imageScene img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 🎥 VIDEO */
+#videoScene {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: black;
+}
+
+#videoScene iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* 🌸 GREETING */
+#greeting {
+  display: none;
+  height: 100vh;
+  background: radial-gradient(circle at center, #302b63 0%, #0f0c29 100%);
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+/* Flowers */
+.flower {
+  position: absolute;
+  width: 180px;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+}
+
+.left { left: 20px; bottom: 40px; }
+.right { right: 20px; bottom: 40px; }
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+/* Character */
+.character {
+  width: 120px;
+  animation: bounce 2s infinite ease-in-out;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.greet-box {
+  text-align: center;
+  z-index: 10;
+}
+
+#greeting h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4.5rem;
+  margin: 15px 0;
+  color: #f72585;
+  text-shadow: 0 0 25px rgba(247,37,133,0.6);
+}
+
+#greeting p {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: #e0e0e0;
+}
+
+/* Buttons */
+.greet-btns {
+  margin-top: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.showBtns {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.greet-btns button {
+  margin: 10px;
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.greet-btns button:first-child {
+  background: #f72585;
+  color: white;
+  box-shadow: 0 10px 20px rgba(247, 37, 133, 0.4);
+}
+
+.greet-btns button:first-child:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(247, 37, 133, 0.6);
+}
+
+.greet-btns button:nth-child(2) {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* 💎 CARDS */
+#menu {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  background: linear-gradient(135deg, #090013, #2b0033);
+}
+
+.card {
+  width: 220px;
+  height: 280px;
+  padding: 30px 20px;
+  border-radius: 25px;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  color: white;
+  z-index: 10;
+}
+
+.card i {
+  font-size: 4.5rem;
+  color: #f72585;
+  transition: all 0.3s;
+}
+
+.card h3 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.card:hover {
+  transform: translateY(-15px) scale(1.05);
+  background: rgba(247, 37, 133, 0.15);
+  border-color: #f72585;
+  box-shadow: 0 20px 40px rgba(247, 37, 133, 0.4);
+}
+
+.card:hover i {
+  transform: scale(1.1);
+  text-shadow: 0 0 20px rgba(247, 37, 133, 0.8);
+}
+
+.menu-title {
+  position: absolute;
+  top: 10%;
+  font-family: 'Dancing Script', cursive;
+  font-size: 4.5rem;
+  color: #f72585;
+  text-shadow: 0 0 30px rgba(247, 37, 133, 0.8);
+  animation: floatTitle 4s ease-in-out infinite;
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+}
+@keyframes floatTitle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.cards-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 10;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -100px;
+  color: rgba(247, 37, 133, 0.2);
+  animation: floatUp infinite linear;
+  z-index: 0;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+
+/* Sections */
+.section {
+  display: none;
+  height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63);
+  padding: 20px;
+  color: white;
+}
+
+.back {
+  margin-bottom: 20px;
+}
+
+/* 📸 SEXY GALLERY */
+#gallery {
+    background: #0f0c29;
+    background: linear-gradient(to bottom right, #24243e, #302b63, #0f0c29);
+    color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+.gallery-header {
+    width: 100%;
+    padding: 60px 20px 20px;
+    text-align: center;
+    position: relative;
+}
+
+.sexy-back {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+    z-index: 100;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    font-family: 'Poppins', sans-serif;
+}
+.sexy-back:hover {
+    background: #f72585;
+    border-color: #f72585;
+    transform: translateX(-5px);
+    box-shadow: 0 10px 20px rgba(247,37,133,0.5);
+}
+
+.gallery-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4.5rem;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 0 25px rgba(247,37,133,0.8);
+}
+
+.gallery-subtitle {
+    color: #a8a2c2;
+    font-size: 1.1rem;
+    margin-top: 5px;
+    letter-spacing: 2px;
+}
+
+.gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
+    cursor: pointer;
+    background: #000;
+}
+
+.gallery-item:hover {
+    transform: translateY(-15px) scale(1.05) rotate(2deg);
+    box-shadow: 0 30px 60px rgba(247, 37, 133, 0.4);
+    z-index: 10;
+}
+
+.gallery-item:nth-child(even):hover {
+    transform: translateY(-15px) scale(1.05) rotate(-2deg);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease, filter 0.6s ease;
+    filter: brightness(0.6) contrast(1.1);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.15);
+    filter: brightness(1) contrast(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: -110px;
+    left: 0;
+    width: 100%;
+    padding: 40px 20px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.5), transparent);
+    transition: bottom 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    color: white;
+}
+
+.gallery-item:hover .gallery-overlay {
+    bottom: 0;
+}
+
+.gallery-overlay h3 {
+    margin: 0;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #ff4d6d;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.gallery-overlay p {
+    font-size: 0.9rem;
+    margin: 5px 0 0 0;
+    color: #e0e0e0;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔐 LOCK -->
+<div id="lockScreen" class="center">
+  <img src="lock1.png" class="lock" id="lock">
+  <img src="key1.png" class="key">
+</div>
+
+<!-- 🖼 IMAGE -->
+<div id="imageScene">
+  <img src="your-image.jpg">
+</div>
+
+<!-- 🎥 VIDEO -->
+<div id="videoScene">
+  <iframe src="bth.html"></iframe>
+</div>
+
+<!-- 🌸 GREETING -->
+<div id="greeting" class="center">
+
+  <img src="flower-left.png" class="flower left">
+  <img src="flower-right.png" class="flower right">
+
+  <div class="greet-box">
+    <div class="character" style="font-size: 6rem; margin-bottom: 20px; position: relative; display: inline-block;">
+      <i class="fa-solid fa-gift" style="background: linear-gradient(135deg, #f72585, #b5179e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 10px 25px rgba(247, 37, 133, 0.6));"></i>
+      <i class="fa-solid fa-heart" style="color: #fcbf49; font-size: 2.5rem; position: absolute; top: -20px; right: -25px; filter: drop-shadow(0 0 10px rgba(252, 191, 73, 0.8)); animation: pulseLock 1.5s infinite alternate ease-in-out;"></i>
+      <i class="fa-solid fa-sparkles" style="color: #fff; font-size: 1.5rem; position: absolute; bottom: 10px; left: -20px; opacity: 0.8;"></i>
+    </div>
+
+    <h1 id="typeText"></h1>
+    <p id="subText"></p>
+
+    <div class="greet-btns" id="btns">
+      <button onclick="showCards()">YES PLEASE</button>
+      <button onclick="noClick(this)">NO THANKS</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- 💎 MENU -->
+<div id="menu" class="center">
+  <!-- Magical Background Elements -->
+  <div class="floating-heart" style="left: 10%; animation-duration: 8s; font-size: 2rem;"><i class="fa-solid fa-heart"></i></div>
+  <div class="floating-heart" style="left: 80%; animation-duration: 10s; font-size: 3.5rem;"><i class="fa-solid fa-heart"></i></div>
+  <div class="floating-heart" style="left: 30%; animation-duration: 6s; font-size: 1.5rem;"><i class="fa-solid fa-star"></i></div>
+  <div class="floating-heart" style="left: 60%; animation-duration: 9s; font-size: 2.5rem;"><i class="fa-solid fa-heart"></i></div>
+  <div class="floating-heart" style="left: 50%; animation-duration: 12s; font-size: 4rem;"><i class="fa-solid fa-heart"></i></div>
+
+  <h1 class="menu-title">Ansu's Special Gifts</h1>
+
+  <div class="cards-container">
+    <div class="card" onclick="window.location.href='gallery.html'"><i class="fa-solid fa-images"></i><h3>Gallery</h3></div>
+    <div class="card" onclick="window.location.href='notes.html'"><i class="fa-solid fa-envelope-open-text"></i><h3>Notes</h3></div>
+    <div class="card" onclick="window.location.href='index.html'"><i class="fa-solid fa-gift"></i><h3>Surprise</h3></div>
+  </div>
+</div>
+
+<!-- Sections -->
+<div id="notes" class="section">
+  <button class="back" onclick="goBack()">⬅ Back</button>
+  Notes
+</div>
+
+<div id="surprise" class="section">
+  <button class="back" onclick="goBack()">⬅ Back</button>
+  Surprise
+</div>
+
+<script>
+const lock = document.getElementById("lock");
+const lockScreen = document.getElementById("lockScreen");
+const imageScene = document.getElementById("imageScene");
+const videoScene = document.getElementById("videoScene");
+const greeting = document.getElementById("greeting");
+const menu = document.getElementById("menu");
+
+// Flow
+window.onload = () => {
+  if (sessionStorage.getItem('unlocked') === 'true') {
+    lockScreen.style.display = "none";
+    imageScene.style.display = "none";
+    videoScene.style.display = "none";
+    greeting.style.display = "none";
+    menu.style.display = "flex";
+    return;
+  }
+
+  setTimeout(() => lock.classList.add("unlock"), 2500);
+
+  setTimeout(() => {
+    lockScreen.style.display = "none";
+    imageScene.style.display = "block";
+  }, 3500);
+
+  setTimeout(() => {
+    imageScene.style.display = "none";
+    videoScene.style.display = "block";
+  }, 5500);
+
+  setTimeout(() => {
+    videoScene.style.display = "none";
+    greeting.style.display = "flex";
+    startTyping();
+  }, 20500);
+};
+
+// Typing
+function startTyping() {
+  let text1 = "Hello there, Ansura ❤️";
+  let text2 = "Do you want to see your gift, Ansu?";
+  let i=0, j=0;
+
+  let t1 = setInterval(()=>{
+    document.getElementById("typeText").innerHTML += text1[i++];
+    if(i===text1.length){
+      clearInterval(t1);
+      let t2 = setInterval(()=>{
+        document.getElementById("subText").innerHTML += text2[j++];
+        if(j===text2.length){
+          clearInterval(t2);
+          document.getElementById("btns").classList.add("showBtns");
+        }
+      },40);
+    }
+  },50);
+}
+
+// YES
+function showCards(){
+  sessionStorage.setItem('unlocked', 'true');
+  greeting.style.display="none";
+  menu.style.display="flex";
+}
+
+// NO 😏
+function noClick(btn){
+  btn.style.position="absolute";
+  btn.style.left=Math.random()*80+"%";
+  btn.style.top=Math.random()*80+"%";
+}
+
+// Nav
+function openSection(id){
+  menu.style.display="none";
+  document.getElementById(id).style.display="block";
+}
+
+function goBack(){
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+  menu.style.display="flex";
+}
+
+// ---------------- CLICK SOUND ----------------
+function playClickSound() {
+  let audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3');
+  audio.volume = 0.5;
+  audio.play().catch(e => console.log('Audio blocked:', e));
+}
+document.addEventListener('click', function(e) {
+  if (e.target.closest('button, .card, .sexy-back')) {
+    playClickSound();
+  }
+});
+</script>
+<!-- Premium Features -->
+<link rel="stylesheet" href="premium-features.css">
+<script src="premium-features.js"></script>
+    <!-- 10X Premium Features -->
+    <link rel="stylesheet" href="10x-features.css">
+    <script src="10x-features.js"></script>
+</body>
+</html>

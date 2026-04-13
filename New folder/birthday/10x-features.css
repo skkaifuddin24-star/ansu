@@ -1,0 +1,149 @@
+/* -------------------------------------
+   10X PREMIUM FEATURES - STYLES
+------------------------------------- */
+
+/* 1. CUSTOM CURSOR */
+body {
+    /* Keep default cursor */
+}
+
+a, button, .cake-container, .tilt-card, .notes-btn, .home-btn, .scroll-btn, .gallery-item {
+    cursor: pointer !important; 
+}
+
+input, textarea {
+    cursor: text !important;
+}
+
+/* Hide custom cursor when interacting with inputs */
+.hide-custom-cursor #custom-cursor,
+.hide-custom-cursor #custom-cursor-follower {
+    opacity: 0 !important;
+    visibility: hidden;
+}
+
+#custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary, #f72585);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    mix-blend-mode: exclusion;
+}
+
+#custom-cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(247, 37, 133, 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+    /* Smooth following achieved via JS */
+}
+
+/* Hover state for cursor */
+.cursor-hover #custom-cursor {
+    width: 0px;
+    height: 0px;
+}
+.cursor-hover #custom-cursor-follower {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(247, 37, 133, 0.1);
+    border-color: rgba(247, 37, 133, 0.8);
+    backdrop-filter: blur(2px);
+}
+
+/* 2. PAGE PRE-LOADER & TRANSITIONS */
+#global-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #050510;
+    z-index: 9999999; /* Highest priority */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s cubic-bezier(0.65, 0, 0.35, 1), visibility 0.8s;
+}
+
+#global-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-heart {
+    font-size: 4rem;
+    color: var(--primary, #f72585);
+    animation: heartPulse 1.2s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 20px rgba(247, 37, 133, 0.6));
+    margin-bottom: 20px;
+}
+
+.loader-text {
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.loader-progress-wrap {
+    width: 250px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.loader-progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary, #f72585), var(--secondary, #b5179e));
+    box-shadow: 0 0 10px rgba(247, 37, 133, 0.8);
+    transition: width 0.2s ease-out;
+}
+
+@keyframes heartPulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(247, 37, 133, 0.4)); }
+    100% { transform: scale(1.2); filter: drop-shadow(0 0 35px rgba(247, 37, 133, 0.9)); }
+}
+
+/* 3. INTERACTIVE CANVAS BACKGROUND */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* 4. UTILITY FOR PAGE TRANSITIONS */
+body.fade-out {
+    opacity: 0 !important;
+    transition: opacity 0.5s ease-in-out !important;
+}
+
+/* Hide old bg-blobs if canvas is used, or let them mix? We can keep them mixed for extra depth */
+.bg-blobs {
+    z-index: -2 !important; 
+}
