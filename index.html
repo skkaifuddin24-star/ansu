@@ -11,25 +11,54 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  background: linear-gradient(135deg, #091020, #1b0a2a, #2b1044);
+  background-size: 400% 400%;
+  animation: bgPulse 15s ease infinite;
   font-family: sans-serif;
   overflow: hidden;
 }
 
 /* Container */
 .container {
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 40px;
+  border-radius: 20px;
   text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
   transition: 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.login-pic {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  display: block;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+}
+
+@keyframes bgPulse {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 input {
-  padding: 10px;
-  width: 200px;
+  padding: 12px;
+  width: 220px;
   margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  text-align: center;
+  outline: none;
+  background: rgba(255,255,255,0.9);
+  font-weight: bold;
 }
 
 button {
@@ -102,8 +131,9 @@ button {
 <body>
 
 <div class="container">
-  <h2>Enter the Secret Password 🔐</h2>
-  <input type="password" id="password" placeholder="Hint: Our special date 👀">
+  <img src="ic/IMG_2600.JPG" alt="US" class="login-pic">
+  <h2 style="margin-top: 0;">Enter the Secret Password 🔐</h2>
+  <input type="password" id="password" placeholder="guess our birthdate">
   <br>
   <button onclick="checkPassword()">Unlock 💖</button>
   <p id="message"></p>
@@ -121,7 +151,7 @@ function checkPassword() {
   const container = document.querySelector(".container");
   const sound = document.getElementById("errorSound");
 
-  const correctPassword = "15"; 
+  const correctPassword = "1501"; 
 
   if (input === correctPassword) {
     message.style.color = "green";
